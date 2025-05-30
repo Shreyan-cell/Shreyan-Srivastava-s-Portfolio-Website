@@ -1,0 +1,103 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container{
+  display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 5 columns */
+    grid-template-rows: repeat(6, 100px); /* 6 rows with 100px height */
+    gap: 10px; /* space between boxes */
+    width: 100%;
+    max-width: 1000px; /* optional, to control full width */
+    margin: auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.box {
+    background-color: lightblue; /* or use JS to randomize */
+    border: 2px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+    #but {
+      display: block;
+      margin: 20px auto;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    </style>
+</head>
+<body>
+     <input id="but" type="button" value="colorchange">
+
+    <div class="container">
+
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+         <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+         <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+         <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+
+    </div>
+    <script>
+        console.log("practicing changing color blocks")
+        let boxes=document.querySelector(".container").children
+        function colorchange(){
+            val1=Math.ceil(0 +Math.random()* 255);
+            val2=Math.ceil(0 +Math.random()* 255);
+            val3=Math.ceil(0 +Math.random()* 255);
+            return `rgb(${val1}, ${val2}, ${val3})`
+        }
+        Array.from(boxes).forEach(e=>{
+            e.style.backgroundColor=colorchange()
+        })
+        function applyColors() {
+    Array.from(boxes).forEach(e => {
+        e.style.backgroundColor = colorchange();
+    });
+}
+        document.getElementById("but").addEventListener("click",applyColors)
+    </script>
+</body>
+</html>

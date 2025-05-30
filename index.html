@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shreyan's Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" ... />
+
+
+    <style>
+        .theme-toggle {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: white;
+  z-index: 999;
+  transition: color 0.3s ease;
+}
+.theme-toggle:hover {
+  color: #aaa;
+}
+.light-mode {
+  background-color: #f5f5f5;
+  color: #222;
+}
+.light-mode nav {
+  background-color: #ffffff;
+}
+.light-mode nav ul li a {
+  color: #222;
+}
+.light-mode nav ul li a:hover {
+  color: #555;
+}
+.light-mode .theme-toggle {
+  color: #222;
+}
+.light-mode .section p {
+  color: #444;
+}
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            background-color: rgb(0, 0, 33);
+            color: white;
+            font-family: 'Poppins', sans-serif;
+        }
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            height: 80px;
+            background-color: rgb(36, 24, 84);
+        }
+        nav ul {
+            display: flex;
+            justify-content: center;
+        }
+        nav ul li {
+            list-style: none;
+            margin: 0 23px;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+        }
+        nav ul li a:hover {
+            color: rgb(142, 142, 199);
+            font-size: 1.04rem;
+        }
+        .left { font-size: 1.5rem; }
+
+        .firstSection {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 130px 0;
+        }
+        .firstSection > div { width: 30%; }
+        .leftSection { font-size: 3rem; }
+        .rightSection img {
+            width: 80%;
+            border-radius: 50%;
+            transition: opacity 1s ease-in-out;
+        }
+        .fade-out { opacity: 0; }
+
+        .purple { color: rgb(154, 69, 233); }
+        #element { color: rgb(155, 155, 204); }
+
+        .section {
+            max-width: 80vw;
+            margin: auto;
+            padding: 100px 0;
+        }
+        #about p{
+font-size: 1.5rem;
+        }
+        .about-card {
+  background: #1a133d;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(154, 69, 233, 0.3);
+  max-width: 900px;
+  margin: 0 auto 100px auto;
+  padding: 40px 40px 50px 40px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.about-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 25px rgba(154, 69, 233, 0.6);
+}
+
+.about-card h1 {
+  font-size: 2.5rem;
+  color: #9a45e9;
+  margin-bottom: 15px;
+  position: relative;
+  font-weight: 700;
+}
+
+.about-card h1::after {
+  content: "";
+  display: block;
+  width: 70px;
+  height: 4px;
+  background: #9a45e9;
+  border-radius: 2px;
+  margin-top: 8px;
+}
+
+.about-content p {
+  font-size: 1.3rem;
+  line-height: 1.7;
+  color: #ccc;
+  margin-bottom: 18px;
+  font-weight: 400;
+}
+
+        #services p{
+font-size: 1.5rem;
+        }
+        .experience-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.experience-card {
+  background: #1a133d;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(154, 69, 233, 0.3);
+  padding: 25px 30px;
+  width: 100%;
+  max-width: 420px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.experience-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 25px rgba(154, 69, 233, 0.6);
+}
+
+.experience-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.experience-icon {
+  font-size: 1.8rem;
+  color: #9a45e9;
+}
+
+.experience-card h3 {
+  font-weight: 600;
+  color: #a39dd4;
+  font-size: 1.3rem;
+  margin: 0;
+}
+
+.experience-card p {
+  font-size: 1rem;
+  color: #ccc;
+  line-height: 1.4;
+}
+
+.btn-link {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 10px 18px;
+  background: #9a45e9;
+  color: white;
+  border-radius: 8px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+  width: fit-content;
+}
+
+.btn-link:hover {
+  background: #7a2fcc;
+}
+
+        #projects p{
+font-size: 1.5rem;
+        }
+       .slider-container {
+  width: 100%;
+  max-width: 600px;
+  overflow: hidden;
+  border-radius: 10px;
+  margin: 20px auto;
+}
+
+.slider {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.slider img {
+  width: 100%;
+  flex-shrink: 0;
+  border-radius: 10px;
+}
+.project-card {
+  background: #1a133d;
+  border-radius: 15px;
+  box-shadow: 0 5px 18px rgba(154, 69, 233, 0.25);
+  padding: 30px 40px;
+  margin-bottom: 50px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.project-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 35px rgba(154, 69, 233, 0.55);
+}
+
+.project-card h2 {
+  color: #9a45e9;
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.project-card p {
+  font-size: 1.3rem;
+  line-height: 1.6;
+  color: #ccc;
+  margin-bottom: 25px;
+}
+
+.slider-container {
+  max-width: 100%;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+}
+
+.slider img {
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.slider img:hover {
+  transform: scale(1.05);
+}
+
+ 
+        #contact p{
+font-size: 1.5rem;
+        }
+        
+        .section h1 { font-size: 2rem; margin-bottom: 20px; }
+        .section p { color: gray; font-size: 1rem; }
+
+        
+        footer {
+            background-color: rgb(7, 10, 26);
+            text-align: center;
+            padding: 40px 20px;
+        }
+        #rocketBtn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: #9a45e9;
+  border: none;
+  outline: none;
+  color: white;
+  cursor: pointer;
+  padding: 15px 18px;
+  border-radius: 50%;
+  font-size: 24px;
+  box-shadow: 0 4px 12px rgba(154, 69, 233, 0.7);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  z-index: 1000;
+}
+
+#rocketBtn:hover {
+  background-color: #7a2cc8;
+  transform: scale(1.1);
+}
+
+#rocketBtn:active {
+  transform: scale(0.95);
+}
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 30px;
+  height: 80px;
+  background: rgba(36, 24, 84, 0.7);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.left {
+  font-size: 1.7rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.nav-links ul {
+  display: flex;
+  gap: 30px;
+}
+
+.nav-links ul li {
+  list-style: none;
+}
+
+.nav-links ul li a {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 500;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.nav-links ul li a::after {
+  content: '';
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  bottom: -5px;
+  left: 0;
+  background-color: #a58cf3;
+  transition: width 0.3s ease;
+}
+
+.nav-links ul li a:hover {
+  color: #a58cf3;
+}
+
+.nav-links ul li a:hover::after {
+  width: 100%;
+}
+
+.theme-toggle {
+  font-size: 1.5rem;
+  color: white;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.theme-toggle:hover {
+  color: #aaa;
+}
+@media (max-width: 768px) {
+  .nav-links ul {
+    flex-direction: column;
+    position: absolute;
+    top: 80px;
+    right: 0;
+    background-color: rgba(0,0,0,0.8);
+    padding: 20px;
+    display: none;
+  }
+
+  .nav-links ul.active {
+    display: flex;
+  }
+
+  .theme-toggle {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+  }
+}
+.contact-section {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.contact-section p {
+  font-size: 1.3rem;
+  margin-bottom: 25px;
+  color: #ccc;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  margin-bottom: 40px;
+}
+
+.social-icons a {
+  color: #9a45e9;
+  font-size: 2.4rem;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.social-icons a:hover {
+  color: #7a2fcc;
+  transform: scale(1.2);
+}
+
+/* Contact form styles */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.contact-form input,
+.contact-form textarea {
+  padding: 12px 15px;
+  border-radius: 10px;
+  border: none;
+  font-size: 1rem;
+  font-family: 'Poppins', sans-serif;
+  background-color: #2a1f59;
+  color: white;
+  resize: none;
+  box-shadow: inset 0 0 5px rgba(154, 69, 233, 0.5);
+  transition: background-color 0.3s ease;
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+  color: #b3a5db;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: none;
+  background-color: #3d2f7a;
+}
+
+.btn-contact {
+  background-color: #9a45e9;
+  color: white;
+  border: none;
+  padding: 14px 25px;
+  border-radius: 30px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn-contact:hover {
+  background-color: #7a2fcc;
+  transform: scale(1.05);
+}
+
+@media (max-width: 480px) {
+  .social-icons {
+    gap: 18px;
+  }
+
+  .social-icons a {
+    font-size: 2rem;
+  }
+
+  .contact-form input,
+  .contact-form textarea {
+    font-size: 0.9rem;
+  }
+}
+.download-resume-link {
+  color: var(--primary-color, #007BFF);
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.download-resume-link:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+
+.btn-download-resume {
+  background-color: #007BFF;
+  color: white;
+  padding: 10px 18px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-download-resume:hover {
+  background-color: #0056b3;
+  text-decoration: none;
+}
+.hamburger {
+    display: none;
+    cursor: pointer;
+    color: white;
+    font-size: 1.8rem;
+  }
+  @media (max-width: 768px) {
+    .hamburger { display: block; }
+  }
+  .theme-toggle-btn {
+  background: rgba(154, 69, 233, 0.8);
+  border: none;
+  border-radius: 20px; /* pill shape */
+  padding: 6px 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 0 8px rgba(154, 69, 233, 0.6);
+  color: white;
+  font-size: 1.5rem;
+}
+
+.theme-toggle-btn:hover {
+  background: rgba(154, 69, 233, 1);
+  box-shadow: 0 0 12px rgba(154, 69, 233, 0.9);
+  color: #eee;
+}
+
+.theme-toggle-btn:focus {
+  outline: 2px solid #a58cf3;
+  outline-offset: 2px;
+}
+
+    </style>
+</head>
+<body>
+    <header>
+<nav>
+  <div class="left">🚀 Shreyan Srivastava's Portfolio
+
+  </div>
+  <div class="hamburger">
+  <i class="fa fa-bars"></i>
+</div>
+
+  <div class="nav-links">
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="#about">About & Resume</a></li>
+      <li><a href="#services">Work Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact Me</a></li>
+<li>
+  <button class="theme-toggle-btn" title="Toggle Dark/Light Mode" aria-label="Toggle Theme">
+    <i class="fa-solid fa-moon" id="themeIcon"></i>
+  </button>
+</li>
+    </ul>
+  </div>
+
+</nav>
+    </header>
+
+    <main>
+        <section id="home" class="firstSection">
+            <div class="leftSection">
+                Hi, My name is <span class="purple">Shreyan Srivastava</span>.<br>
+                Welcome to my Portfolio,<br>
+                I am a passionate <span id="element"></span>
+            </div>
+            <div class="rightSection">
+                <img id="changingImage" src="bg.png" alt="Profile Image">
+
+            </div>
+            
+        </section>
+
+        <section id="about" class="section about-card">
+  <h1>About Me</h1>
+  <div class="about-content">
+    <p>
+      Hi! I'm <strong style="color: rgb(163, 157, 212);">Shreyan</strong>, currently a student of Bachelor's Of Computer Application and I am a passionate web developer and creative designer. I specialize in building modern, responsive websites using HTML, CSS, JavaScript, and more. With a strong interest in Cyber Security and backend technologies like Node.js and Python, I love turning ideas into digital reality.
+    </p>
+    <p>
+      I’ve worked on various projects ranging from portfolios and landing pages to dynamic web apps. My goal is to create visually appealing, user-friendly, and performance-optimized experiences on the web.
+    </p>
+    <p>
+      When I'm not coding, I enjoy learning new tech skills, exploring design trends, and creating content for social media to inspire others in the development community.
+    </p>
+
+<p>
+<a href="SHREYAN SRIVASTAVA RESUME.pdf" download="Shreyan_Srivastava_Resume.pdf" class="btn-download-resume" target="_blank">
+  Download My Resume
+</a>
+  </a>
+</p>
+
+  </div>
+</section>
+
+
+        <section id="services" class="section">
+  <h1>Work Experience</h1>
+  <div class="experience-container">
+    <div class="experience-card">
+      <div class="experience-header">
+        <i class="fa-solid fa-code experience-icon"></i>
+        <h3>Web Developer at Pinnacle Labs Pvt Ltd</h3>
+      </div>
+      <p>Currently working as a Web Developer, building modern and responsive websites.</p>
+      <a href="Pinnacle OL.pdf" target="_blank" class="btn-link">View Offer Letter</a>
+    </div>
+
+    <div class="experience-card">
+      <div class="experience-header">
+        <i class="fa-solid fa-database experience-icon"></i>
+        <h3>Data Manager at Achiever’s Coaching Institute</h3>
+      </div>
+      <p>Handled data management tasks for 7 months.</p>
+      <a href="ACHIEVERS COACH-UP SHREYAN.pdf" target="_blank" class="btn-link">View Offer Letter</a>
+    </div>
+
+    <div class="experience-card">
+      <div class="experience-header">
+        <i class="fa-solid fa-headset experience-icon"></i>
+        <h3>Customer Executive at Niftel Company</h3>
+      </div>
+      <p>Provided customer support for 3 months.</p>
+      <a href="NIFTEL OL.pdf" target="_blank" class="btn-link">View Offer Letter</a>
+    </div>
+
+    <div class="experience-card">
+      <div class="experience-header">
+        <i class="fa-solid fa-handshake experience-icon"></i>
+        <h3>Sales Executive at Startek Company</h3>
+      </div>
+      <p>Worked as Sales Customer Executive for 4 months.</p>
+      <a href="STARTEK OL.pdf" target="_blank" class="btn-link">View Offer Letter</a>
+    </div>
+  </div>
+</section>
+
+
+    <section id="projects" class="section">
+  <h1>Projects</h1>
+
+  <div class="project-card">
+    <h2>• Cake Ordering Website</h2>
+    <p>
+      Link: <a href="https://shreyancakehub.vercel.app/" target="_blank">Link of Website</a><br>
+      Technologies: HTML, CSS, JavaScript, NodeJS<br>
+      Description: A responsive cake ordering demo website with a clean user interface and dynamic components. Built to showcase user interaction, categorized cake listings, and mobile responsiveness.
+    </p>
+    <div class="slider-container">
+      <div class="slider" id="slider1">
+        <img src="cake1.png" alt="Image 1">
+        <img src="cake2.png" alt="Image 2">
+        <img src="cake3.png" alt="Image 3">
+      </div>
+    </div>
+  </div>
+  <div class="project-card">
+    <h2>• Playable Piano</h2>
+    <p>
+      Link: <a href="piano.html" target="_blank">Link of Website</a><br>
+      Technologies: HTML, CSS, JavaScript, NodeJS<br>
+      Description:This interactive web-based piano allows users to play musical notes using either their keyboard or by clicking on the piano keys displayed on the screen. Featuring a sleek, modern design with smooth animations and responsive layout, the piano supports volume control and the option to toggle the display of key labels.
+
+Built with HTML, CSS, and JavaScript, this project demonstrates audio playback handling, dynamic UI effects, and keyboard event listening. It’s a fun and educational tool for beginners learning music or web development, providing an immersive and user-friendly experience.
+    </p>
+    <div class="slider-container">
+      <div class="slider" id="slider1">
+        <img src="piano1.png" alt="Image 1">
+        <img src="piano2.png" alt="Image 2">
+      </div>
+    </div>
+  </div>
+
+  <div class="project-card">
+    <h2>• Hackers Terminal</h2>
+    <p>
+      Technologies: HTML, CSS, JavaScript, NodeJS<br>
+      Link: <a href="hack.html" target="_blank">Link of Project</a><br>
+      Description: A fun, engaging, and visually striking web-based terminal simulator that mimics a live hacking interface. Designed with a dark theme and green terminal-style text to resemble a “hacker's console,” this app provides a prank-style experience to users through animated messages and fake hacking sequences.
+    </p>
+    <div class="slider-container">
+      <div class="slider" id="slider2">
+        <img src="js1.png" alt="Image 1">
+        <img src="js2.png" alt="Image 2">
+      </div>
+    </div>
+  </div>
+
+  <div class="project-card">
+    <h2>• Shreyan’s Cafe Website</h2>
+    <p>
+      Technologies: HTML, CSS<br>
+      Link: <a href="https://679a3ef1bda3d71d00df76aa--dapper-ganache-cffd1c.netlify.app/" target="_blank">Link of Project</a><br>
+      Description: Designed and developed a fully responsive portfolio website using only HTML and CSS. Focused on clean layout, modern UI, and user-friendly design principles to ensure compatibility across devices. Demonstrated strong understanding of front-end structure, semantic HTML, and custom styling.
+    </p>
+    <div class="slider-container">
+      <div class="slider" id="slider3">
+        <img src="cafe1.png" alt="Image 1">
+        <img src="cafe2.png" alt="Image 2">
+        <img src="cafe3.png" alt="Image 3">
+      </div>
+    </div>
+  </div>
+  <div class="project-card">
+    <h2>• Shreyan’s Calculator</h2>
+    <p>
+      Technologies: HTML, CSS, JavaScript<br>
+      Link: <a href="calc.html" target="_blank">Link of Project</a><br>
+      Description:Developed a visually appealing and responsive web calculator with a custom 3D-themed background. The calculator supports basic arithmetic operations including addition, subtraction, multiplication, division, and percentage. Key features include:
+    </p>
+    <div class="slider-container">
+      <div class="slider" id="slider3">
+        <img src="calc1.png" alt="Image 1">
+        <!-- <img src="calc2.png" alt="Image 2"> -->
+        <img src="calc3.png" alt="Image 3">
+      </div>
+    </div>
+  </div>
+  <div class="project-card">
+    <h2>• ColorBoxes with Color Change</h2>
+    <p>
+      Technologies: HTML, CSS, JavaScript<br>
+      Link: <a href="colorbox.html" target="_blank">Link of Project</a><br>
+      Description:A creative and interactive web application that displays a 5x6 responsive grid layout (30+ boxes) where each box changes to a random RGB color on a button click. This project demonstrates real-time DOM manipulation and dynamic styling using JavaScript
+    </p>
+    <div class="slider-container">
+      <div class="slider" id="slider3">
+        <img src="color1.png" alt="Image 1">
+        <!-- <img src="calc2.png" alt="Image 2"> -->
+        <img src="color2.png" alt="Image 3">
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section id="contact" class="section contact-section">
+  <h1>Contact Me</h1>
+  <p>I'd love to hear from you! Connect with me on:</p>
+  <div class="social-icons">
+    <a href="https://www.linkedin.com/in/shreyan26/" target="_blank" aria-label="LinkedIn">
+      <i class="fab fa-linkedin"></i>
+    </a>
+    <a href="https://github.com/Shreyan-cell" target="_blank" aria-label="GitHub">
+      <i class="fab fa-github"></i>
+    </a>
+    <a href="https://www.instagram.com/shreyansrivastava/" target="_blank" aria-label="Instagram">
+      <i class="fab fa-instagram"></i>
+    </a>
+    <a href="mailto:srivastavashreyan50@gmail.com" aria-label="Email">
+      <i class="fas fa-envelope"></i>
+    </a>
+  </div>
+  <form action="mailto:srivastavashreyan50@gmail.com" method="post" enctype="text/plain" class="contact-form">
+    <input type="text" name="name" placeholder="Your Name" required />
+    <input type="email" name="email" placeholder="Your Email" required />
+    <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+    <button type="submit" class="btn-contact">Send Message</button>
+  </form>
+</section>
+  </main>
+
+    <footer>
+        <p>&copy; 2025 Shreyan Srivastava. All rights reserved.</p>
+    </footer>
+<!-- Rocket Scroll to Top Button -->
+<button id="rocketBtn" title="Go to top">
+  <i class="fas fa-rocket"></i>
+</button>
+
+    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+    <script>
+        // Typed.js animation
+        var typed = new Typed('#element', {
+            strings: ['Web Developer', 'Python Developer', 'Web Designer'],
+            typeSpeed: 50,
+            backSpeed: 25,
+            loop: true
+        });
+
+        // Image changing with fade effect
+        const image = document.getElementById("changingImage");
+        const images = ["bg.png", "bg2.png"];
+        let index = 0;
+
+        setInterval(() => {
+            image.classList.add("fade-out");
+
+            setTimeout(() => {
+                index = (index + 1) % images.length;
+                image.src = images[index];
+                setTimeout(() => {
+                    image.classList.remove("fade-out");
+                }, 100);
+            }, 1000);
+        }, 4000);
+       const sliders = document.querySelectorAll('.slider');
+let sliderIndexes = Array(sliders.length).fill(0);
+
+setInterval(() => {
+  sliders.forEach((slider, i) => {
+    sliderIndexes[i] = (sliderIndexes[i] + 1) % slider.children.length;
+    slider.style.transform = `translateX(-${sliderIndexes[i] * 100}%)`;
+  });
+}, 3000);
+const rocketBtn = document.getElementById('rocketBtn');
+
+// Scroll to top on click
+rocketBtn.addEventListener('click', () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+});
+
+// Optional: Show button only after scrolling down some amount
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 300) {
+    rocketBtn.style.display = 'block';
+  } else {
+    rocketBtn.style.display = 'none';
+  }
+});
+
+// Initially hide the button
+rocketBtn.style.display = 'none';
+
+const themeToggleBtn = document.querySelector('.theme-toggle-btn');
+const themeIcon = document.getElementById('themeIcon');
+
+themeToggleBtn.addEventListener('click', () => {
+  document.body.classList.toggle('light-mode');
+  if (document.body.classList.contains('light-mode')) {
+    themeIcon.classList.remove('fa-moon');
+    themeIcon.classList.add('fa-sun');
+  } else {
+    themeIcon.classList.remove('fa-sun');
+    themeIcon.classList.add('fa-moon');
+  }
+});
+
+  const hamburger = document.querySelector('.hamburger');
+  const navLinks = document.querySelector('.nav-links ul');
+  hamburger.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+  });
+  document.getElementById('rocketBtn').addEventListener('click', () => {
+  window.scrollTo({top: 0, behavior: 'smooth'});
+});
+
+    </script>
+</body>
+</html>

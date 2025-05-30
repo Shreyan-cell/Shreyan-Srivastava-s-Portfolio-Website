@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculator by Shreyan Srivastava
+</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      overflow: hidden;
+    }
+
+    /* Static background image */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('calc.png') no-repeat center center/cover;
+      z-index: -1;
+    }
+
+    .calculator {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 20px;
+      padding: 30px;
+      width: 320px;
+      margin: auto;
+      margin-top: 10vh;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .calculator h1 {
+      text-align: center;
+      font-size: 18px;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .display {
+      width: 100%;
+      font-size: 26px;
+      padding: 10px;
+      text-align: right;
+      border: none;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .result {
+      text-align: right;
+      color: #555;
+      font-size: 14px;
+      margin-bottom: 15px;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .button {
+      padding: 20px;
+      font-size: 18px;
+      background-color: #f9fafb;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .button:hover {
+      background-color: #e5e7eb;
+    }
+
+    .operator {
+      background-color: #d1d5db;
+    }
+
+    .operator:hover {
+      background-color: #9ca3af;
+      color: white;
+    }
+
+    .equals {
+      background-color: #4f46e5;
+      color: white;
+    }
+
+    .equals:hover {
+      background-color: #4338ca;
+    }
+
+    .wide {
+      grid-column: span 2;
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <h1>Calculator by Shreyan Srivastava</h1>
+    <input type="text" class="display" id="display" placeholder="0" />
+    <div class="result" id="result"></div>
+    <div class="buttons">
+      <button class="button operator" data-value="C">C</button>
+      <button class="button operator" data-value="⌫">⌫</button>
+      <button class="button operator" data-value="%">%</button>
+      <button class="button operator" data-value="/">÷</button>
+
+      <button class="button" data-value="7">7</button>
+      <button class="button" data-value="8">8</button>
+      <button class="button" data-value="9">9</button>
+      <button class="button operator" data-value="x">×</button>
+
+      <button class="button" data-value="4">4</button>
+      <button class="button" data-value="5">5</button>
+      <button class="button" data-value="6">6</button>
+      <button class="button operator" data-value="-">−</button>
+
+      <button class="button" data-value="1">1</button>
+      <button class="button" data-value="2">2</button>
+      <button class="button" data-value="3">3</button>
+      <button class="button operator" data-value="+">+</button>
+
+      <button class="button wide" data-value="0">0</button>
+      <button class="button" data-value=".">.</button>
+      <button class="button equals" data-value="=">=</button>
+    </div>
+  </div>
+
+  <script>
+    let input = "";
+    const display = document.getElementById("display");
+    const result = document.getElementById("result");
+    const buttons = document.querySelectorAll(".button");
+
+    function sanitizeInput(str) {
+      str = str
+        .replace(/÷/g, '/')
+        .replace(/×/g, '*')
+        .replace(/−/g, '-')
+        .replace(/x/gi, '*');
+      return str.replace(/\b0+([1-9]\d*(\.\d*)?|\d+\.\d+)\b/g, (match, p1) => p1);
+    }
+
+    buttons.forEach(button => {
+      button.addEventListener("click", () => {
+        const value = button.getAttribute("data-value");
+
+        if (value === "=") {
+          try {
+            input = sanitizeInput(input);
+            input = eval(input);
+          } catch {
+            input = "Error";
+          }
+        } else if (value === "C") {
+          input = "";
+        } else if (value === "⌫") {
+          input = input.slice(0, -1);
+        } else {
+          input += value;
+        }
+
+        display.value = input;
+
+        try {
+          if (input !== "" && value !== "=" && value !== "C" && value !== "⌫") {
+            result.textContent = eval(sanitizeInput(input));
+          } else {
+            result.textContent = "";
+          }
+        } catch {
+          result.textContent = "";
+        }
+      });
+    });
+  </script>
+</body>
+</html>
