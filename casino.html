@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Casino Slot Machine</title>
+ <style>
+
+    * {
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+  background: radial-gradient(circle at top, #2a0045, #000);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: gold;
+}
+
+/* MACHINE */
+.casino {
+  width: 540px;
+  background: linear-gradient(160deg, #30004f, #14001f);
+  padding: 22px;
+  border-radius: 22px;
+  box-shadow: 0 0 50px #9b2cff;
+  text-align: center;
+}
+
+.title {
+  letter-spacing: 3px;
+  margin-bottom: 10px;
+}
+
+.panel {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.controls input,
+.controls button {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 8px;
+  border: none;
+}
+
+.controls button {
+  background: linear-gradient(to right, gold, #ffb700);
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* SLOTS */
+.slots {
+  display: flex;
+  justify-content: space-around;
+  margin: 25px 0;
+}
+
+.reel {
+  width: 90px;
+  height: 90px;
+  overflow: hidden;
+  background: radial-gradient(circle, #000, #111);
+  border: 3px solid gold;
+  border-radius: 12px;
+  box-shadow: inset 0 0 20px gold;
+}
+
+.reel-inner {
+  display: flex;
+  flex-direction: column;
+  transform: translateY(0);
+}
+
+.symbol {
+  height: 90px;
+  font-size: 42px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* REAL ROLLING */
+.reel-inner.spin {
+  animation: reelRoll 1.2s cubic-bezier(.15,.7,.2,1) forwards;
+}
+
+@keyframes reelRoll {
+  from { transform: translateY(0); }
+  to { transform: translateY(-1080px); }
+}
+
+/* LEVER */
+.lever-area {
+  width: 70px;
+  margin: 15px auto;
+  cursor: pointer;
+}
+
+.lever {
+  height: 160px;
+  transform-origin: top;
+  transition: transform 0.25s ease-out;
+}
+
+.lever.pull {
+  transform: rotate(35deg);
+}
+
+.lever-stick {
+  width: 8px;
+  height: 120px;
+  background: linear-gradient(#ccc, #666);
+  margin: auto;
+  border-radius: 4px;
+}
+
+.lever-ball {
+  width: 34px;
+  height: 34px;
+  background: radial-gradient(circle, red, darkred);
+  border-radius: 50%;
+  margin: auto;
+  box-shadow: 0 0 18px red;
+}
+
+/* MESSAGE */
+.message {
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+/* RESTART */
+.restart {
+  margin-top: 12px;
+  width: 100%;
+  padding: 10px;
+  background: #9b2cff;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+}
+
+ </style>
+</head>
+<body>
+
+<div class="casino">
+
+  <h1 class="title">🎰SHREYAN'S CASINO</h1>
+
+  <div class="panel">
+    💰 Balance: $<span id="balance">0</span>
+  </div>
+
+  <div class="controls">
+    <input type="number" id="deposit" placeholder="Deposit Amount">
+    <button onclick="depositMoney()">Deposit</button>
+
+    <input type="number" id="lines" placeholder="Lines (1–3)">
+    <input type="number" id="bet" placeholder="Bet per line">
+  </div>
+
+  <!-- SLOT REELS -->
+  <div class="slots">
+    <div class="reel"><div class="reel-inner" id="reel0"></div></div>
+    <div class="reel"><div class="reel-inner" id="reel1"></div></div>
+    <div class="reel"><div class="reel-inner" id="reel2"></div></div>
+  </div>
+
+  <!-- LEVER -->
+  <div class="lever-area" onclick="pullLever()">
+    <div class="lever">
+      <div class="lever-stick"></div>
+      <div class="lever-ball"></div>
+    </div>
+  </div>
+
+  <div class="message" id="message">Deposit money to start</div>
+
+  <button class="restart" onclick="restartGame()">🔄 Restart Game</button>
+
+</div>
+<script>
+
+    const ROWS = 3;
+const COLS = 3;
+
+const SYMBOLS_COUNT = { A:2, B:4, C:6, D:8 };
+const SYMBOL_VALUE = { A:5, B:4, C:3, D:2 };
+const SYMBOLS = ["A","B","C","D"];
+
+let balance = 0;
+let bet = 0;
+let lines = 0;
+let spinning = false;
+
+/* STEP 1 */
+function depositMoney() {
+  const amount = +deposit.value;
+  if (amount <= 0) return alert("Invalid deposit");
+  balance = amount;
+  updateBalance();
+  message.innerText = "Set lines and bet, then pull lever";
+}
+
+/* LEVER */
+function pullLever() {
+  if (spinning) return;
+
+  lines = +linesInput.value;
+  bet = +betInput.value;
+
+  if (lines < 1 || lines > 3 || bet <= 0 || bet * lines > balance)
+    return alert("Invalid lines or bet");
+
+  spinning = true;
+  document.querySelector(".lever").classList.add("pull");
+
+  setTimeout(() => {
+    document.querySelector(".lever").classList.remove("pull");
+    spinGame();
+  }, 250);
+}
+
+/* GAME */
+function spinGame() {
+  balance -= bet * lines;
+  updateBalance();
+
+  const reels = spin();
+  const rows = transpose(reels);
+
+  animateReels(rows);
+
+  setTimeout(() => {
+    const winnings = getWinnings(rows, bet, lines);
+    balance += winnings;
+    updateBalance();
+    message.innerText = winnings > 0 ? `You won $${winnings}` : "You lost 😢";
+    spinning = false;
+  }, 1300);
+}
+
+/* REAL ROLLING WITH SYMBOLS */
+function animateReels(rows) {
+  for (let i = 0; i < 3; i++) {
+    const reel = document.getElementById(`reel${i}`);
+    reel.innerHTML = "";
+    reel.classList.remove("spin");
+
+    let symbols = [];
+    for (let j = 0; j < 12; j++) {
+      const s = SYMBOLS[Math.floor(Math.random() * SYMBOLS.length)];
+      symbols.push(s);
+    }
+    symbols.push(rows[0][i]); // final stop
+
+    symbols.forEach(s => {
+      const div = document.createElement("div");
+      div.className = "symbol";
+      div.innerText = s;
+      reel.appendChild(div);
+    });
+
+    setTimeout(() => reel.classList.add("spin"), i * 150);
+  }
+}
+
+/* RESTART */
+function restartGame() {
+  balance = 0;
+  updateBalance();
+  message.innerText = "Game restarted. Deposit again.";
+  document.querySelectorAll(".reel-inner").forEach(r => r.innerHTML = "");
+}
+
+/* LOGIC (UNCHANGED) */
+function spin() {
+  const symbols = [];
+  for (const [s,c] of Object.entries(SYMBOLS_COUNT))
+    for (let i=0;i<c;i++) symbols.push(s);
+
+  const reels=[];
+  for (let i=0;i<COLS;i++) {
+    reels.push([]);
+    const pool=[...symbols];
+    for (let j=0;j<ROWS;j++) {
+      const idx=Math.floor(Math.random()*pool.length);
+      reels[i].push(pool[idx]);
+      pool.splice(idx,1);
+    }
+  }
+  return reels;
+}
+
+function transpose(reels) {
+  return reels[0].map((_,i)=>reels.map(r=>r[i]));
+}
+
+function getWinnings(rows, bet, lines) {
+  let win=0;
+  for (let i=0;i<lines;i++) {
+    if (rows[i].every(s=>s===rows[i][0]))
+      win += bet * SYMBOL_VALUE[rows[i][0]];
+  }
+  return win;
+}
+
+function updateBalance() {
+  balanceEl.innerText = balance;
+}
+
+/* DOM SHORTCUTS */
+const deposit = document.getElementById("deposit");
+const linesInput = document.getElementById("lines");
+const betInput = document.getElementById("bet");
+const balanceEl = document.getElementById("balance");
+const message = document.getElementById("message");
+
+</script>
+</body>
+</html>
